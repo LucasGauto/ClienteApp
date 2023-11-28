@@ -31,12 +31,20 @@ while accion != '5':
 
         if accion == '1':
             author = input("Ingrese el nombre del autor por el que desea buscar: ")
+            acciones.buscarPorAutor(autor=author)
+
         elif accion == '2':
             title = input("Ingrese el titulo del libro que busca: ")
+            acciones.buscarPorTitulo(title=title)
+
         elif accion == '3':
-            laguage = input("Ingrese el idioma de los libros que busca: ")
+            language = input("Ingrese el idioma de los libros que busca: ")
+            acciones.buscarPorIdioma(language=language)
+
         elif accion == '4':
             year = int(input("Ingrese el año del libro que busca: "))
+            acciones.buscarPorAnio(year=year)
+
         elif accion == '5':
             print(menu())
             accion = input(">>: ")
@@ -48,12 +56,16 @@ while accion != '5':
 
     elif accion == '2':
         print("Bien. A continuación le pediremos que ignrese la información del libro a ingresar: ")
-        author = input("Nombre del autor: ")
-        title = input("Titulo: ")
-        year = int(input("Año en que se escribió: "))
-
+        autor = input("Nombre del autor: ")
+        titulo = input("Titulo: ")
+        anio = int(input("Año en que se escribió: "))
+        pais = input("¿En que pais?: ")
+        linkImagen = input("Ingresa un link de imagen: ")
+        idioma=input("En qué idioma fue escrito?: ")
+        link=input("Ingresa el link donde encontrar el libro: ")
+        paginas= int(input("Cuantas paginas tiene?: "))
         #Accedo al modulo accesoApi, y ejecuto la funcion nuevoLibro
-        acciones.nuevoLibro(author, title, year) #Pruebo con solo 3 campos porque los demás están seteados como None en la API como default
+        acciones.nuevoLibro(autor,titulo,anio,pais,linkImagen,idioma,link,paginas) #Pruebo con solo 3 campos porque los demás están seteados como None en la API como default
 
         print(menu())
         accion = input(">>: ")
@@ -61,6 +73,7 @@ while accion != '5':
 
     elif accion == '3':
         accion = input("Cuál es el titulo del libro que desea eliminar?: ")
+        acciones.eliminarLibro(accion)
 
     elif accion == '4':
         print("Bien, actualicemos un libro.")
