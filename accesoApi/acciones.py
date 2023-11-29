@@ -1,15 +1,16 @@
 import requests
 
+#api_url = 'http://127.0.0.1:8000'
 api_url = 'http://127.0.0.1:8000'
 
-def nuevoLibro(author, title, year, country, imageLink, language, link, pages): #El put no anda
+def nuevoLibro(author, title, year:int, country, imageLink, language, link, pages:int): #El put no anda
 
     # Datos que deseas enviar en la solicitud PUT
     datos_a_enviar = {
 	    "author": author,
         "title": title,
         "year": year,
-	    "country": country,        
+	    "country": country,
         "imageLink": imageLink,
         "language": language,
         "link": link,
@@ -70,5 +71,3 @@ def misLibros(): #Funciona
         for campo, dato in libro.items():
             print(campo,": ",dato)
         print("\n")
-
-nuevoLibro("Lucas","LibrodeLucas",2023,"Argentina","link","Español","link2",5)

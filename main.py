@@ -14,58 +14,112 @@ def menu():
     4 - Editar un libro (hacer).
     5 - Salir.
     """
+
+def menuBusqueda():
+    return """
+        1 - Buscar por autor.
+        2 - Buscar por titulo.
+        3 - Buscar por idioma.
+        4 - Buscar por año.
+        5 - Volver.
+        """
+
 print(menu())
 accion = input(">>: ")
 
 while accion != '5':
-    
+
     if accion == '1':
-        print("""Bien, las opciones de obtención de datos son las siguientes:
-            1 - Buscar por autor.
-            2 - Buscar por titulo.
-            3 - Buscar por idioma.
-            4 - Buscar por año.
-            5 - Volver.
-            """)
-        accion = input('>>: ')
+        print("""Bien, las opciones de obtención de datos son las siguientes:""")
 
-        if accion == '1':
-            author = input("Ingrese el nombre del autor por el que desea buscar: ")
-            acciones.buscarPorAutor(autor=author)
+        print(menuBusqueda())
 
-        elif accion == '2':
-            title = input("Ingrese el titulo del libro que busca: ")
-            acciones.buscarPorTitulo(title=title)
+        opcion = input('>>: ')
 
-        elif accion == '3':
-            language = input("Ingrese el idioma de los libros que busca: ")
-            acciones.buscarPorIdioma(language=language)
+        while opcion != '5':
+            if opcion == '1':
+                author = input("Ingrese el nombre del autor por el que desea buscar: ")
 
-        elif accion == '4':
-            year = int(input("Ingrese el año del libro que busca: "))
-            acciones.buscarPorAnio(year=year)
+                print("######################################################\n")
+                acciones.buscarPorAutor(author=author)
+                print("\n#####################################################")
+                print(menuBusqueda())
+                opcion = input('>>: ')
+                continue
 
-        elif accion == '5':
+            elif opcion == '2':
+                title = input("Ingrese el titulo del libro que busca: ")
+
+                print("######################################################\n")
+                acciones.buscarPorTitulo(title=title)
+                print("\n#####################################################")
+
+                print(menuBusqueda())
+                opcion = input('>>: ')
+                continue
+
+            elif opcion == '3':
+                language = input("Ingrese el idioma de los libros que busca: ")
+
+                print("\n#####################################################\n")
+                acciones.buscarPorIdioma(language=language)
+                print("\n#####################################################\n")
+
+                print(menuBusqueda())
+                opcion = input('>>: ')
+                continue
+
+            elif opcion == '4':
+                while True:
+                    try:
+                        year = int(input("Ingrese el año del libro que busca: "))
+                        break
+                    except ValueError:
+                        print("Ingrese un año válido por favor.")
+
+                print("\n#####################################################\n")
+                acciones.buscarPorAnio(year=year)
+                print("\n#####################################################\n")
+
+                print(menuBusqueda())
+                opcion = input('>>: ')
+                continue
+            else:
+                print('Ingrese una opción válida')
+                opcion = input(">>: ")
+                continue
+
+        if opcion == '5':
             print(menu())
             accion = input(">>: ")
+            print("\n")
             continue
-        else:
-            print('Ingrese una opción válida')
-            accion = input(">>: ")
-
 
     elif accion == '2':
         print("Bien. A continuación le pediremos que ignrese la información del libro a ingresar: ")
         autor = input("Nombre del autor: ")
         titulo = input("Titulo: ")
-        anio = int(input("Año en que se escribió: "))
+
+        while True: #verifica que sea numero
+            try:
+                anio = int(input("Año en que se escribió: "))
+                break
+            except ValueError:
+                print("Ingrese un numero por favor.")
+
         pais = input("¿En que pais?: ")
         linkImagen = input("Ingresa un link de imagen: ")
         idioma=input("En qué idioma fue escrito?: ")
         link=input("Ingresa el link donde encontrar el libro: ")
-        paginas= int(input("Cuantas paginas tiene?: "))
-        #Accedo al modulo accesoApi, y ejecuto la funcion nuevoLibro
-        acciones.nuevoLibro(autor,titulo,anio,pais,linkImagen,idioma,link,paginas) #Pruebo con solo 3 campos porque los demás están seteados como None en la API como default
+
+        while True: #verifica que sea numero
+            try:
+                paginas= int(input("Cuantas paginas tiene?: "))
+                break
+            except ValueError:
+                print("Ingrese un numero por favor.")
+
+        acciones.nuevoLibro(autor,titulo,anio,pais,linkImagen,idioma,link,paginas)
 
         print(menu())
         accion = input(">>: ")
@@ -74,6 +128,9 @@ while accion != '5':
     elif accion == '3':
         accion = input("Cuál es el titulo del libro que desea eliminar?: ")
         acciones.eliminarLibro(accion)
+        print(menu())
+        accion = input(">>: ")
+        continue
 
     elif accion == '4':
         print("Bien, actualicemos un libro.")
@@ -81,21 +138,6 @@ while accion != '5':
     else:
         print("Ingrese una opción válida.")
         accion = input(">>: ")
-'''
-print("""
-Qué desea hacer?
-    1 - Crear un usuario
-    2 - Ingresar
+        continue
 
-""")
-
-hacer = acciones.Acciones()
-accion = input(">>: ")
-
-if accion == "1":
-    hacer.registro()
-elif accion == "2":
-    hacer.login()
-else:
-    print("Ingrese una opción válida.")
-'''
+print("Nos vemos!")
